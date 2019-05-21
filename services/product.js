@@ -37,32 +37,23 @@ module.exports = (db) => {
         // },
         create(req) {
             return db.sequelize.transaction(async transaction => {
-                    return Product = await db.Product.create(req.body, {
+                    let Product = await db.Product.create(req.body, {
                         transaction: transaction
                     })
-
-                })
-                .then(Product => {
                     req.files.forEach(Images => {
                         Images.ProductId = Product.id
                         Images.filePath = Images.path
                     })
                     let file = req.files;
-                    db.Image.bulkCreate(file, {
+               await  db.Image.bulkCreate(file, {
                             returning: true,
+                            transaction: transaction
                         })
-                        .then(file => {
-                            return {
-                                status: 201,
-                                data: file
-                            }
-                        })
-                        .catch(error => {
-                            return {
-                                status: 500,
-                                error: error
-                            }
-                        })
+                        return {
+                            data: Product
+                        }
+                })
+                .then(Product => {
                     return {
                         status: 201,
                         data: Product
