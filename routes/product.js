@@ -3,7 +3,7 @@ module.exports = (app, upload, services) => {
     const { Product } = services;
     router.post('/upload', upload.any('file'), async (req, res) => {
         const result = await Product.create(req);
-        return res.status(result.status).json(result);
+        return  res.status(result.status).json(result);
     });
     router.get('/findAll',async (req, res) => {
         const result = await Product.findAll(req);

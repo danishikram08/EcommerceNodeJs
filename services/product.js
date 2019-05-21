@@ -1,16 +1,57 @@
 module.exports = (db) => {
     return {
+        // create(req) {
+        //     return db.Product.create(req.body)
+        //         .then(Product => {
+        //             file = req.files
+        //             file.forEach(Images => {
+        //                 Images.ProductId = Product.id
+        //                 Images.filePath = Images.path
+        //             })
+        //             db.Image.bulkCreate(file, {
+        //                     returning: true
+        //                 }).then(file => {
+        //                     return {
+        //                         status: 201,
+        //                         data: file
+        //                     }
+        //                 })
+        //                 .catch(error => {
+        //                     return {
+        //                         status: 500,
+        //                         error: error
+        //                     }
+        //                 })
+        //             return {
+        //                 status: 201,
+        //                 data: Product
+        //             }
+        //         })
+        //         .catch(error => {
+        //             return {
+        //                 status: 500,
+        //                 error: error
+        //             }
+        //         })
+
+        // },
         create(req) {
-            return db.Product.create(req.body)
+            return db.sequelize.transaction(async transaction => {
+                    return Product = await db.Product.create(req.body, {
+                        transaction: transaction
+                    })
+
+                })
                 .then(Product => {
-                    file = req.files
-                    file.forEach(Images => {
+                    req.files.forEach(Images => {
                         Images.ProductId = Product.id
                         Images.filePath = Images.path
                     })
+                    let file = req.files;
                     db.Image.bulkCreate(file, {
-                            returning: true
-                        }).then(file => {
+                            returning: true,
+                        })
+                        .then(file => {
                             return {
                                 status: 201,
                                 data: file
@@ -33,7 +74,6 @@ module.exports = (db) => {
                         error: error
                     }
                 })
-
         },
         findAll(req) {
             return db.Product.findAll({
