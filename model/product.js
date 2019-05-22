@@ -11,6 +11,10 @@ module.exports = (sequelize, datatype) => {
         productDescription: {
             type: datatype.STRING
         }
+        ,
+        price: {
+            type: datatype.INTEGER
+        }
     });
     Product.associate = (model) => {
         Product.hasMany(model.Image);

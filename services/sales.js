@@ -1,7 +1,17 @@
 module.exports = (db) => {
     return {
         create(req) {
-            return db.Sales.create(req.body)
+            let productSale = req.body.productSales
+            let total=0;
+            productSale.forEach(element => {
+                total += element.fixedPrice * element.quantity;
+            });
+            req.body.total =total
+            return db.Sales.create(req.body, {
+                    include: {
+                        model: db.productSales
+                    }
+                })
                 .then(Sales => {
                     return {
                         status: 201,
@@ -56,9 +66,12 @@ module.exports = (db) => {
         },
         update(req) {
             const id = req.params.id;
-            const{quantity,price}=req.body;
-             req.body.total=quantity*price;
-            return db.Sales.update( req.body, {
+            const {
+                quantity,
+                price
+            } = req.body;
+            req.body.total = quantity * price;
+            return db.Sales.update(req.body, {
                     where: {
                         id: req.params.id
                     }

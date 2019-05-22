@@ -5,8 +5,12 @@ module.exports = (sequelize, datatype) => {
             autoIncrement: true,
             primaryKey: true
         },
+        date: {
+            type: datatype.DATE
+        },
+
         total: {
-            type: datatype.INTEGER
+            type: datatype.FLOAT
         }
     });
     Sales.associate = (model) => {

@@ -22,6 +22,14 @@ module.exports = (app, services) => {
     router.delete('/delete/:id', async (req, res) => {
         let result = await productSales.delete(req);
         return res.status(result.status).json(result);
+    }); 
+    router.get('/findAllProduct', async (req, res) => {
+        let result = await productSales.findAllProduct(req);
+        return res.status(result.status).json(result);
+    });
+    router.get('/findAllSales', async (req, res) => {
+        let result = await productSales.findAllSales(req);
+        return res.status(result.status).json(result);
     });
     return router;
 }

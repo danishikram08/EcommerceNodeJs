@@ -5,10 +5,10 @@ module.exports = (sequelize, datatype) => {
             autoIncrement: true,
             primaryKey: true
         },
-        price: {
+        quantity: {
             type: datatype.INTEGER
         },
-        quantity: {
+        fixedPrice: {
             type: datatype.INTEGER
         }
     });

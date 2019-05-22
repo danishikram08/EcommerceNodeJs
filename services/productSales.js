@@ -43,7 +43,7 @@ module.exports = db => {
                     };
                 });
         },
-        findAllstudent(req) {
+        findAllProduct(req) {
             return db.Product.findAll({
 
                     include: [{
@@ -69,7 +69,7 @@ module.exports = db => {
                     };
                 });
         },
-        findAllteacher(req) {
+        findAllSales(req) {
             return db.Sales.findAll({
                     include: [{
                         model: db.productSales,
