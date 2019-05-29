@@ -1,11 +1,11 @@
 module.exports = (db) => {
     return {
         create(req) {
-            return db.subCategory.create(req.body)
-                .then(subCategory => {
+            return db.Person.create(req.body)
+                .then(Person => {
                     return {
                         status: 201,
-                        data: subCategory
+                        data: Person
                     };
                 })
                 .catch(error => {
@@ -16,15 +16,15 @@ module.exports = (db) => {
                 })
         },
         findAll(req) {
-            return db.subCategory.findAll({
+            return db.Person.findAll({
                     attributes: {
                         exclude: ["createdAt", "updatedAt"]
                     }
                 })
-                .then(subCategory => {
+                .then(Person => {
                     return {
                         status: 201,
-                        data: subCategory
+                        data: Person
                     }
                 })
                 .catch(error => {
@@ -35,15 +35,15 @@ module.exports = (db) => {
                 })
         },
         findById(req) {
-            return db.subCategory.findById(req.params.id, {
+            return db.Person.findById(req.params.id, {
                     attributes: {
                         exclude: ["createdAt", "updatedAt"]
                     }
                 })
-                .then(subCategory => {
+                .then(Person => {
                     return {
                         status: 201,
-                        data: subCategory
+                        data: Person
                     }
                 })
                 .catch(error => {
@@ -55,16 +55,15 @@ module.exports = (db) => {
         },
 
         update(req) {
-            const id = req.query.id;
-            return db.subCategory.update(req.body, {
+            return db.Person.update(req.body, {
                     where: {
                         id: req.query.id
                     }
                 })
-                .then(subCategory => {
+                .then(Person => {
                     return {
                         status: 201,
-                        data: subCategory
+                        data: Person
                     }
                 })
                 .catch(error => {
@@ -76,15 +75,15 @@ module.exports = (db) => {
         },
         delete(req) {
             let id = req.query.id;
-            return db.subCategory.destroy({
+            return db.Person.destroy({
                     where: {
                         id: id
                     }
                 })
-                .then(subCategory => {
+                .then(Person => {
                     return {
                         status: 201,
-                        data: subCategory
+                        data: Person
                     }
                 })
                 .catch(error => {

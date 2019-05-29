@@ -6,7 +6,7 @@ module.exports = (sequelize, datatype) => {
             primaryKey: true
         },
         subCategoryTitle: {
-            type: datatype.STRING
+            type: datatype.STRING(255)
         }
     });
     subCategory.associate = (model) => {

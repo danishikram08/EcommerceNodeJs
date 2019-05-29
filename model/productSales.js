@@ -6,10 +6,10 @@ module.exports = (sequelize, datatype) => {
             primaryKey: true
         },
         quantity: {
-            type: datatype.INTEGER
+            type: datatype.INTEGER(10)
         },
         fixedPrice: {
-            type: datatype.INTEGER
+            type: datatype.INTEGER(10)
         }
     });
     productSales.associate = (model) => {

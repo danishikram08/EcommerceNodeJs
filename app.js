@@ -24,7 +24,10 @@ app.use('/category', routers.category);
 app.use('/subCategory', routers.subCategory);
 app.use('/sales', routers.sales);
 app.use('/productSales', routers.productSales);
-
+app.use('/coupons', routers.coupons);
+app.use('/persons', routers.persons);
+app.use('/couponPerson', routers.couponPerson);
+app.use('/couponProduct',routers.couponProduct);
 const publicDir = require('path').join(__dirname);
 app.use(express.static(publicDir));
 module.exports = app;

@@ -6,7 +6,7 @@ module.exports = (sequelize, datatype) => {
             primaryKey: true
         },
         filePath: {
-            type: datatype.STRING
+            type: datatype.STRING(255)
         }
     });
     Image.associate = (model) => {

@@ -6,7 +6,7 @@ module.exports = (sequelize, datatype) => {
             primaryKey: true
         },
         categoryTitle: {
-            type: datatype.STRING
+            type: datatype.STRING(255)
         }
     });
     return Category;

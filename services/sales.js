@@ -1,16 +1,42 @@
-module.exports = (db) => {
+module.exports = db => {
     return {
         create(req) {
+            const {
+                coupon,date
+            } = req.body;
+            let sales = req.body
             let productSale = req.body.productSales
-            let total=0;
+            let total = 0;
             productSale.forEach(element => {
                 total += element.fixedPrice * element.quantity;
             });
-            req.body.total =total
+            req.body.total = total
+            coupon.forEach(element => {
+                const {
+                    discount,
+                    flatDiscount,
+                    expireTo
+                } = element;
+                element.discount = discount / 100;
+                element.flatDiscount = flatDiscount / 100;
+                if (!element.flatDiscount &&  expireTo!= date && element.isActive!=0) {
+                    let fixedTotal = 0;
+                    sales.CouponId = element.CouponId
+                    fixedTotal += sales.total * element.discount;
+                    sales.fixedAmount = sales.total - fixedTotal;
+                } else{
+                    let fixedTotal = 0;
+                    sales.CouponId = element.CouponId
+                    fixedTotal += sales.total * element.flatDiscount;
+                    sales.fixedAmount = sales.total - fixedTotal;
+                }
+            });
             return db.Sales.create(req.body, {
-                    include: {
+                    include: [{
                         model: db.productSales
-                    }
+                    }, {
+                        model: db.Coupon
+                    }]
                 })
                 .then(Sales => {
                     return {
